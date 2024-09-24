@@ -45,13 +45,16 @@ const blogSchema = mongoose.Schema(
         return this.isHaveMedia;
       }, // Required only if media is present
     },
-    image: {
+    mediaUrl: {
       type: String, // URL or path to the image associated with the blog post
       validate: {
         validator: (v) => {
           return /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(v); // Simple URL validation
         },
         message: "Please provide a valid URL for the image.",
+        required: function () {
+          return this.isHaveMedia;
+        },
       },
     },
     likes: {
